@@ -14,9 +14,14 @@
 > Create user and save to the database
 
 _URL Link_
-```
-http://localhost:3000/register
-```
+- localhost:
+  ```
+  http://localhost:3000/register
+  ```
+- heroku:
+  ```
+  https://widya-test.herokuapp.com/register
+  ```
 
 _Request Body_
 ```
@@ -56,9 +61,14 @@ _Response (500)_
 > Login user after register
 
 _URL Link_
-```
-http://localhost:3000/login
-```
+- localhost:
+  ```
+  http://localhost:3000/login
+  ```
+- heroku:
+  ```
+  https://widya-test.herokuapp.com/login
+  ```
 
 _Request Body_
 ```
@@ -95,9 +105,14 @@ _Response (500)_
 > Get user data
 
 _URL Link_
-```
-http://localhost:3000/user
-```
+- localhost:
+  ```
+  http://localhost:3000/user
+  ```
+- heroku:
+  ```
+  https://widya-test.herokuapp.com/user
+  ```
 
 _Request Header_
 ```
