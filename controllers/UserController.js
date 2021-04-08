@@ -1,6 +1,6 @@
 const UserModel = require("./../models/UserModel");
 const { hashPassword, comparePassword } = require("../helpers/bcryptjs");
-const { generateToken } = require('../helpers/jwt')
+const { generateToken } = require("../helpers/jwt");
 
 class UserController {
   static async registerHandler(req, res) {
@@ -24,36 +24,45 @@ class UserController {
   }
 
   static async loginHandler(req, res) {
-    const {email, password} = req.body
+    const { email, password } = req.body;
     try {
       if (!email || !password) {
         throw new Error("email or password must be filled");
       }
 
       const dataUser = await UserModel.findByEmail(email);
-      
+
       if (!dataUser) {
-        res.status(401).json({message: "Invalid email/password"});
+        res.status(401).json({ message: "Invalid email/password" });
       }
 
-      const matchPassword = comparePassword(password, dataUser.password)
+      const matchPassword = comparePassword(password, dataUser.password);
 
-      if(!matchPassword) {
-        res.status(401).json({message: "Invalid email/password"})
+      if (!matchPassword) {
+        res.status(401).json({ message: "Invalid email/password" });
       }
 
       const payloadUser = {
         _id: dataUser._id,
         email: dataUser.email,
-        name: dataUser.name
-      }
+        name: dataUser.name,
+      };
 
-      const access_token = generateToken(payloadUser)
+      const access_token = generateToken(payloadUser);
 
       res.status(200).json({
         access_token,
-        payloadUser
-      })
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: err.message });
+    }
+  }
+
+  static async getUserDataHandler(req, res) {
+    try {
+      const response = await UserModel.findById(req.loginUser._id);
+      res.status(200).json(response)
     } catch (err) {
       console.log(err);
       res.status(500).json({ message: err.message });
