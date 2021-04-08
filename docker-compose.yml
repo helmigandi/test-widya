@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:4.2-bionic
+    ports:
+      - 27017:27017
+    command: mongod
+    volumes:
+      - my-app-volume:/data/db
+
+volumes:
+  my-app-volume:
