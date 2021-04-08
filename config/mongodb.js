@@ -1,5 +1,6 @@
 const { MongoClient } = require("mongodb");
 
+// golobal variable untuk menyimpan database status
 let database = null;
 
 // Connection URI
@@ -16,13 +17,15 @@ async function connect() {
     await client.connect();
 
     const db = client.db("Widya");
-    database = db;
+    database = db; // simpan ke global variable
     return db;
   } catch (err) {
     console.log("ERROR from MongoDB Config", err);
   }
 }
 
+// get database dari global variable
+// dibuat fungsi agar dipanggil jika butuh
 function getDatabase() {
   return database;
 }
