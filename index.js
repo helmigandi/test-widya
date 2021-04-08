@@ -2,14 +2,12 @@ const express = require("express");
 const { connect } = require("./config/mongodb");
 const app = express();
 const PORT = process.env.PORT || 3000;
-// const routes = require("./routes")
+const routes = require("./routes");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use(routes);
 
 connect()
   .then(() => {
@@ -20,5 +18,5 @@ connect()
     });
   })
   .catch((err) => {
-    console.log("MongoDB Connection Error");
+    console.log("MongoDB Connection Error", err);
   });
