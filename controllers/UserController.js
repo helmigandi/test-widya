@@ -12,11 +12,14 @@ class UserController {
     };
     try {
       if (!dataUser.email || !dataUser.password) {
-        throw new Error("email or password must be filled");
+        res.status(400).json({ message: "email and password is required" });
       }
       dataUser.password = hashPassword(dataUser.password);
       const response = await UserModel.createUser(dataUser);
-      res.status(201).json(response.ops[0]);
+      res.status(201).json({
+        name: response.ops[0].name,
+        email: response.ops[0].email,
+      });
     } catch (err) {
       console.log(err);
       res.status(500).json({ message: err.message });
@@ -27,7 +30,7 @@ class UserController {
     const { email, password } = req.body;
     try {
       if (!email || !password) {
-        throw new Error("email or password must be filled");
+        res.status(400).json({ message: "email and password is required" });
       }
 
       const dataUser = await UserModel.findByEmail(email);
@@ -62,7 +65,7 @@ class UserController {
   static async getUserDataHandler(req, res) {
     try {
       const response = await UserModel.findById(req.loginUser._id);
-      res.status(200).json(response)
+      res.status(200).json(response);
     } catch (err) {
       console.log(err);
       res.status(500).json({ message: err.message });
