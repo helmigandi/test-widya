@@ -7,6 +7,11 @@ class UserModel {
     return databaseUsers.insertOne(dataUser);
   }
 
+  static async findByEmail(email) {
+    const databaseUsers = this.getDatabaseCollection();
+    return databaseUsers.findOne({ email });
+  }
+
   static getDatabaseCollection() {
     return getDatabase().collection("users");
   }
